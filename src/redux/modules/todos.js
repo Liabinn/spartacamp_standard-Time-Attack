@@ -5,7 +5,7 @@ const initialState = [
   {
     id: shortid.generate(),
     title: "",
-    body: "",
+    contents: "",
     isDone: false,
   },
 ];
@@ -14,13 +14,19 @@ const initialState = [
 const todos = (state = initialState, action) => {
   switch (action.type) {
     case "ADD_TODO":
-      return; //TODO: 여기 작성
+      return [...state, action.payload]; //TODO: 여기 작성
 
     case "DELETE_TODO":
-      return; //TODO: 여기 작성
+      return state.filter((todo) => todo.id !== action.payload); //TODO: 여기 작성
 
     case "SWITCH_TODO":
-      return; //TODO: 여기 작성
+      return state.map((todo) => {
+        if(todo.id === action.payload) {
+          return {...todo, isDone: !todo.isDone}
+        } else {
+          return todo
+        }
+      }); //TODO: 여기 작성
 
     default:
       return state;
